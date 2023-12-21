@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Check Out</title>
+     <style>
+   
+    .slip-screen {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+
+   
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .print-btn,
+    .tables-list-btn {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+    <div class="container" align="center" >
+    <h2>Check Out</h2>
+    <div class="slip-screen">
+    <h1>PPS</h1>
+    <hr>
+    <h1>THANK YOU FOR COME HERE</h1>
+        <table class="table w-50">
+            <thead class="table-dark">
+              <tr>
+                <th>Food</th>
+                <th>Price/Item</th>
+                <th>Qty</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each ="check: ${checkList}">
+                <td th:text="${check.food}"></td>
+                <td th:text="${check.price}"></td>
+                <td th:text="${check.itemNumber}"></td>
+                <td th:text="${check.aTotal}"></td>
+              </tr>
+            </tbody>
+          </table>
+        
+          <hr>
+          <div style="margin-left: 19rem;">
+  				<p> Total: <span th:text="${checkList.get(checkList.size() - 1).total}" style="padding-left: 4rem;"></span></p>
+		  </div>
+          </div>
+		<br>
+         <div class="buttons">
+         		<!--  <a class="btn print-btn" th:href="@{/print}">Print</a> -->
+         		<button  class="btn print-btn" onclick="window.print()">Print</button>
+    	<th:block th:with="tableId=${#strings.replace(#request.getRequestURI(), '/showcheck/', '')}">
+				<a th:href="@{/mainTables/{id} (id=${tableId})}" class="btn btn-primary">Main Tables</a>		
+		</th:block>
+ 		 </div>
+ 		<!-- <div>
+    		<h3 th:if="${#strings.toString(param.successMsg)} == '1'" style="color: green;">Print Succeed</h3>
+		</div>-->
+ 		 </div>
+</body>
+</html>
+
+<!--    <td th:text="${check.items}"></td>
+                <td th:text="${check.iPrice}"></td> -->
